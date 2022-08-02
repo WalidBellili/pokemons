@@ -1,38 +1,33 @@
+import { random } from "lodash";
 import { useEffect, useState } from "react";
-import Home from "./components/Home";
-import _ from "lodash";
+// import Home from "./components/Home";
 
 function App() {
   const [pokemons, setPokemons] = useState(null);
-  const [findPokemonRandom, setfindPokemonRandom] = useState(null);
+
+  const [randomPokemon, setRandomPokemon] = useState(
+    "https://pokeapi.co/api/v2/pokemon/1"
+  );
 
   useEffect(() => {
     fetchData();
-    fetchDataId();
   }, []);
 
   const fetchData = async () => {
-    const request = await fetch("https://pokeapi.co/api/v2/pokemon/1");
+    const request = await fetch(randomPokemon);
     const response = await request.json();
     setPokemons(response);
   };
-  const fetchDataId = async () => {
-    const requestId = await fetch(`https://pokeapi.co/api/v2/pokemon/`);
-    const responseId = await requestId.json();
-
-    setfindPokemonRandom(responseId);
-    const filteredPokemon = findPokemonRandom.filter((pokemon) => {
-      console.log(pokemon);
-    });
+  const randomPokemonFunction = () => {
+    const random = Math.floor(Math.random() * 151) + 1;
+    setRandomPokemon(`https://pokeapi.co/api/v2/pokemon/${random}`);
   };
 
   //  si pokemons = null
   if (pokemons === null) {
     return <div></div>;
   }
-  if (findPokemonRandom === null) {
-    return <div></div>;
-  }
+
   console.log(pokemons);
   return (
     <div>
@@ -55,6 +50,7 @@ function App() {
           </ul>
         );
       })}
+      <button onClick={randomPokemonFunction}></button>
     </div>
   );
 }
