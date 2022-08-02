@@ -1,6 +1,4 @@
-import { random } from "lodash";
 import { useEffect, useState } from "react";
-// import Home from "./components/Home";
 
 import "./App.css";
 
@@ -12,6 +10,7 @@ function App() {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, [randomPokemon]);
 
   const fetchData = async () => {
